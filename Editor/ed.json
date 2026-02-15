@@ -1,0 +1,15 @@
+{
+        "name":"Editor",
+        "short_name":"Editor",
+        "display":"fullscreen",
+        "theme":"#000",                                                                                              
+        "background_color":"#000",
+        "start_url":"./index.html",
+        "icons":[
+                {
+                        "type":"image/png",
+                        "src":"logo.png",
+                        "sizes":"192x192"
+                }
+        ]                                                                                        
+}
