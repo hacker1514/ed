@@ -172,6 +172,8 @@
 			border-radius:20px;
 			padding:20px;
 			border:1px solid white;
+			width:80vw;
+			height:80vh;
 		      }
 
 	</style>
@@ -210,7 +212,26 @@
 	<button class="kb" onclick="install()">⬇️</button>
 	<button class="kb" onclick="k90.showModal()">⚙️</button>
 	<button class="kb" onclick="r()">🏃‍➡️</button>
-	<textarea class="k1" type="text" id="content" spellcheck="off" autocapitalize="off" autocorrect="off" autocomplete="off"></textarea>	
+	<button class="kb" onclick="fkn()">📩</button>
+	<button class="kb" onclick="trm.showModal()">&nbsp;~/&nbsp;</button>
+	<textarea class="k1" type="text" id="content" spellcheck="off" autocapitalize="off" autocorrect="off" autocomplete="off"></textarea>
+
+
+	<input type="file" style="display:none" id="fi" accept=".txt,.js" onchange="fks();"></input>
+	<script>
+	function fkn(){
+		document.getElementById("fi").click();
+		}
+	function fks(){
+		let f=document.getElementById("fi").files[0];
+		if(!f) return;
+		let r = new FileReader();
+		r.onload=function(e){
+			document.getElementById("content").value=e.target.result;
+		};
+		r.readAsText(f);
+		}
+	</script>
 
 
 		<dialog class="k70" id="sn1">
@@ -239,8 +260,14 @@
 		</dialog>
 
 		<dialog class="k79" id="output">
-		<p> 𝙾𝚄𝚃𝙿𝚄𝚃 : <button onclick="output.close()" style="background-color:black;border:none;right:5px;font-size:25px;position:absolute;top:5px;">❌</button></p>
-		<div id="out"></div>
+		<p style="color:cyan"> 𝙾𝚄𝚃𝙿𝚄𝚃 : <button onclick="output.close()" style="background-color:black;border:none;right:5px;font-size:25px;position:absolute;top:5px;">❌</button></p>
+		<pre id="out" ></pre>
+		</dialog>
+
+
+		<dialog class="k79" id="trm">
+		<p style="color:cyan">𝚃𝚎𝚛𝚖𝚒𝚗𝚊𝚕 ~/ : <button onclick="dt()" style="background-color:black;border:none;right:60px;font-size:25px;position:absolute;top:5px;">⏹️</button> <button onclick="trm.close()" style="background-color:black;border:none;right:5px;font-size:25px;position:absolute;top:5px;">❌</button></p>
+		<pre>𝚆𝚘𝚛𝚔 𝚒𝚜 𝚐𝚘𝚒𝚗𝚐 𝚘𝚗 ..... !</pre>
 		</dialog>
 
 
@@ -258,16 +285,77 @@
 			<button class="kb" onclick="k90.close()" style="width:300px;">𝙽𝙾𝙽𝙴</button>
 	</dialog>
 
-	<script>
-		function r(){
-			let output=eval(document.getElementById("content").value);
-			document.getElementById("out").innerText=output;
-			document.getElementById("output").showModal();
-			}
-	</script>
+
+<script>
+function dt(){
+	let trm=document.getElementById("trm");
+	if(trm.style.width=="100vw"){
+		trm.style.width="80vw";
+		trm.style.height="80vh";
+		}else{
+			trm.style.width="100vw";
+			trm.style.height="100vh";
+		}
+	}
+document.getElementById("content").addEventListener("keydown", function(e){
+
+    if(e.key === "Tab"){
+
+        e.preventDefault(); 
+        let start = this.selectionStart;
+        let end   = this.selectionEnd;
+
+        let tab = "	";
+
+        this.value =
+            this.value.substring(0, start) +
+            tab +
+            this.value.substring(end);
+
+        this.selectionStart = this.selectionEnd = start + tab.length;
+    }
+
+});
+</script>
+
 
 
 <script>
+function pr(t){
+    document.getElementById("out").textContent += t ;
+}
+
+function r(){
+
+    document.getElementById("out").textContent = "";
+
+    let code = document.getElementById("content").value;
+
+    code = code.replace(/console\.log/g, "pr");
+ code=code.replace(/alert/g,"pr");
+    try {
+        eval(code);
+    }
+    catch(e){
+        pr("Error: " + e.message);
+    }
+    document.getElementById("output").showModal();
+}
+</script>
+
+
+
+<script>
+   document.getElementById("content").addEventListener("keydown",function(e){
+		if(e.key==="Tab"){
+			e.preventDefault();
+			let s=this.selectionStart;
+			let e=this.selectionEnd;
+			let t="    ";
+			this.value=this.value.substring(0,s)+t+this.value.substring(e);
+			this.selectionStart=this.selectionEnd-s+4;
+			}
+		});
 	function sa(){
 		document.getElementById('sn4').close();
 		let p=document.getElementById('pn').value;
